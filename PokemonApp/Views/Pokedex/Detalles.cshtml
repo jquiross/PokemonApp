@@ -1,0 +1,17 @@
+﻿@model PokemonApp.Models.PokemonPokedex
+
+@{
+    ViewBag.Title = "Detalles del Pokémon";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="card">
+    <img class="card-img-top" src="@Model.Imagen" alt="@Model.Nombre" />
+    <div class="card-body">
+        <h5 class="card-title">@Model.Nombre</h5>
+        <p class="card-text">Tipo: @Model.Tipo</p>
+        <p class="card-text">Descripción: @Model.Descripcion</p>
+        <a href="@Url.Action("Index", "Pokedex")" class="btn btn-primary">Volver a la lista</a>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<PokemonApp.Models.PokemonPokedex>
+
+@{
+    ViewBag.Title = "Pokedex - Lista de Pokémons";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var pokemon in Model)  // Iterando sobre la lista de Pokémon
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="@pokemon.Imagen" alt="@pokemon.Nombre" />
+                    <div class="card-body">
+                        <h5 class="card-title">@pokemon.Nombre</h5>
+                        <p class="card-text">Tipo: @pokemon.Tipo</p>
+                        <p class="card-text">@pokemon.Descripcion</p>
+                        <a href="@Url.Action("Detalles", "Pokedex", new { id = pokemon.Id })" class="btn btn-primary">Ver Detalles</a>
+                    </div>  
+                </div>
+            </div>
+        }
+    </div>
+</div>
