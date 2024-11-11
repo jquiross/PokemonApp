@@ -13,10 +13,10 @@ namespace PokemonApp
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class POKEMON_PROYECTEntities1 : DbContext
+    public partial class POKEMON_PROYECTEntities : DbContext
     {
-        public POKEMON_PROYECTEntities1()
-            : base("name=POKEMON_PROYECTEntities1")
+        public POKEMON_PROYECTEntities()
+            : base("name=POKEMON_PROYECTEntities")
         {
         }
     
@@ -25,8 +25,8 @@ namespace PokemonApp
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Pokemon> Pokemons { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Pokemon> Pokemon { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

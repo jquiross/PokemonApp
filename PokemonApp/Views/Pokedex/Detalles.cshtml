@@ -1,4 +1,4 @@
-﻿@model PokemonApp.Models.PokemonPokedex
+﻿@model PokemonApp.Models.Pokemon
 
 @{
     ViewBag.Title = "Detalles del Pokémon";
@@ -7,11 +7,15 @@
 <h1>@ViewBag.Title</h1>
 
 <div class="card">
-    <img class="card-img-top" src="@Model.Imagen" alt="@Model.Nombre" />
+    @*<img class="card-img-top" src="@Model.Imagen" alt="@Model.Nombre" />*@
     <div class="card-body">
         <h5 class="card-title">@Model.Nombre</h5>
         <p class="card-text">Tipo: @Model.Tipo</p>
-        <p class="card-text">Descripción: @Model.Descripcion</p>
+        @*<p class="card-text">Descripción: @Model.Descripcion</p>*@
+        <p class="card-text">Debilidad: @Model.Debilidad</p>
+        <p class="card-text">Evolución: @Model.Evolucion</p>
+        <p class="card-text">Peso: @Model.Peso kg</p>
+        <p class="card-text">Número: @Model.Numero</p>
         <a href="@Url.Action("Index", "Pokedex")" class="btn btn-primary">Volver a la lista</a>
     </div>
 </div>

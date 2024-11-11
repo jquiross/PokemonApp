@@ -11,61 +11,68 @@ namespace PokemonApp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        // Constructor del controlador, inicializa el contexto de la base de datos.
         public PokedexController()
         {
             _context = new ApplicationDbContext();
         }
 
-        // Acción para mostrar la lista de Pokémon
+        //show all pokemons
         public ActionResult Index()
         {
-            ViewBag.Title = "Pokedex - Lista de Pokémons";  // Asignando un título
+            ViewBag.Title = "Pokedex - Lista de Pokémons";
 
-            // Obteniendo todos los Pokémon de la base de datos
+            //fetch all pokemons from the database
             var pokemons = _context.Pokemons.ToList();
 
-            // Convertir la lista de Pokémon (modelo de base de datos) a la lista de PokemonPokedex
-            var pokemonPokedexList = pokemons.Select(p => new PokemonPokedex
+            //convert the list of pokemons to a list of Pokemon models
+            var pokemonList = pokemons.Select(p => new Pokemon
             {
                 Id = p.Id,
-                Nombre = p.Name,
-                Tipo = p.Type,
-                Descripcion = p.Description,
-                Imagen = p.Image
+                Nombre = p.Nombre,
+                Tipo = p.Tipo,
+                Debilidad = p.Debilidad,
+                Evolucion = p.Evolucion,
+                Peso = p.Peso,
+                Numero = p.Numero,
+                //Descripcion = p.Descripcion,  
+                //Imagen = p.Imagen             //unable to add these fields because they do not exist in the database
             }).ToList();
 
-            return View(pokemonPokedexList);  // Pasamos la lista de Pokémon a la vista
+            return View(pokemonList);
         }
 
-        // Acción para mostrar los detalles de un Pokémon
+        //details
         public ActionResult Detalles(int id)
         {
-            var pokemon = _context.Pokemons.FirstOrDefault(p => p.Id == id);  // Buscando el Pokémon por ID
-            if (pokemon == null)
+            //find
+            var pokemonEntity = _context.Pokemons.FirstOrDefault(p => p.Id == id);
+
+            if (pokemonEntity == null)
             {
-                return HttpNotFound();  // Si no se encuentra el Pokémon, se devuelve error 404
+                return HttpNotFound();  //404 Not Found pokemon
             }
 
-            // Convertir el Pokémon encontrado en el modelo PokemonPokedex
-            var pokemonPokedex = new PokemonPokedex
+            //convert the pokemon entity to a Pokemon model
+            var pokemon = new Pokemon
             {
-                Id = pokemon.Id,
-                Nombre = pokemon.Name,
-                Tipo = pokemon.Type,
-                Descripcion = pokemon.Description,
-                Imagen = pokemon.Image
+                Id = pokemonEntity.Id,
+                Nombre = pokemonEntity.Nombre,
+                Tipo = pokemonEntity.Tipo,
+                Debilidad = pokemonEntity.Debilidad,
+                Evolucion = pokemonEntity.Evolucion,
+                Peso = pokemonEntity.Peso,
+                Numero = pokemonEntity.Numero,
             };
 
-            return View(pokemonPokedex);  // Pasamos el Pokémon a la vista de detalles
+            return View(pokemon);  //return the view with the pokemon model
         }
 
-        // Aseguramos de cerrar el contexto cuando el controlador sea destruido
+        //close the database connection
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _context.Dispose();  // Liberando recursos del contexto
+                _context.Dispose();
             }
             base.Dispose(disposing);
         }

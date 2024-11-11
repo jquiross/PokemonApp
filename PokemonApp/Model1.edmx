@@ -72,7 +72,7 @@
           <Property Name="Peso" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="Numero" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Role">
+        <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -80,20 +80,20 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuarios__RolId__398D8EEE" FromRole="Roles" ToRole="Usuarios" />
         </EntityType>
-        <EntityType Name="Usuario">
+        <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RolId" Type="Int32" />
-          <Property Name="Usuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Contraseña" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__Usuarios__RolId__398D8EEE" FromRole="Usuarios" ToRole="Roles" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK__Usuarios__RolId__398D8EEE" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
         <Association Name="FK__Usuarios__RolId__398D8EEE">
-          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
-          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="*" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
               <PropertyRef Name="Id" />
@@ -103,10 +103,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="POKEMON_PROYECTEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Pokemons" EntityType="Self.Pokemon" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+        <EntityContainer Name="POKEMON_PROYECTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pokemon" EntityType="Self.Pokemon" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="FK__Usuarios__RolId__398D8EEE" Association="Self.FK__Usuarios__RolId__398D8EEE">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -117,8 +117,8 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="POKEMON_PROYECTModelStoreContainer" CdmEntityContainer="POKEMON_PROYECTEntities1">
-          <EntitySetMapping Name="Pokemons">
+        <EntityContainerMapping StorageEntityContainer="POKEMON_PROYECTModelStoreContainer" CdmEntityContainer="POKEMON_PROYECTEntities">
+          <EntitySetMapping Name="Pokemon">
             <EntityTypeMapping TypeName="POKEMON_PROYECTModel.Pokemon">
               <MappingFragment StoreEntitySet="Pokemon">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -132,7 +132,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="POKEMON_PROYECTModel.Role">
+            <EntityTypeMapping TypeName="POKEMON_PROYECTModel.Roles">
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -140,11 +140,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="POKEMON_PROYECTModel.Usuario">
+            <EntityTypeMapping TypeName="POKEMON_PROYECTModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RolId" ColumnName="RolId" />
-                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
                 <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </MappingFragment>
@@ -164,7 +164,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
